@@ -3,159 +3,348 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="A simple personal links page" />
-    <title>My Links</title>
+    <meta
+      name="description"
+      content="Official links for the Mechanical Engineering Club"
+    />
+    <title>Mechanical Engineering Club</title>
 
     <style>
       :root {
-        --text: #ffffff;
-        --muted-text: rgba(255, 255, 255, 0.78);
-        --button-bg: rgba(255, 255, 255, 0.14);
-        --button-border: rgba(255, 255, 255, 0.25);
-        --button-hover: rgba(255, 255, 255, 0.24);
-        --shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+        --accent: #ff7626;
+        --ink: #151515;
+        --paper: #f7f7f4;
+        --page-background:
+          radial-gradient(circle at 18% 8%, rgba(255, 118, 38, 0.2), transparent 27rem),
+          radial-gradient(circle at 90% 88%, rgba(255, 118, 38, 0.11), transparent 24rem),
+          #111111;
       }
 
       * {
         box-sizing: border-box;
       }
 
-      html,
-      body {
+      html {
         min-height: 100%;
-        margin: 0;
       }
 
       body {
-        display: grid;
-        place-items: center;
-        padding: 32px 18px;
-        color: var(--text);
+        min-height: 100vh;
+        margin: 0;
+        overflow-x: hidden;
+        color: #ffffff;
+        background: var(--page-background);
         font-family:
-          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-          "Segoe UI", sans-serif;
-        background: linear-gradient(145deg, #6d28d9, #2563eb 55%, #0891b2);
-        background-attachment: fixed;
-        background-position: center;
-        background-size: cover;
+          Inter, "Segoe UI", Tahoma, Arial, sans-serif;
+      }
+
+      body::before {
+        position: fixed;
+        z-index: -1;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+        background-size: 38px 38px;
+        content: "";
+        mask-image: linear-gradient(to bottom, black, transparent 92%);
+      }
+
+      body::after {
+        position: fixed;
+        z-index: -1;
+        top: -120px;
+        right: -150px;
+        width: 380px;
+        height: 380px;
+        border: 52px solid rgba(255, 118, 38, 0.08);
+        border-radius: 50%;
+        content: "";
       }
 
       .page {
-        width: min(100%, 560px);
-        text-align: center;
+        width: min(100%, 650px);
+        margin: 0 auto;
+        padding: 42px 20px 34px;
+      }
+
+      .panel {
+        position: relative;
+        overflow: hidden;
+        padding: clamp(28px, 6vw, 48px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 34px;
+        background: rgba(20, 20, 20, 0.82);
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
+        backdrop-filter: blur(18px);
+      }
+
+      .panel::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 7px;
+        background: var(--accent);
+        content: "";
       }
 
       .profile {
-        margin-bottom: 28px;
+        text-align: center;
       }
 
-      .logo {
-        display: grid;
-        width: 104px;
-        height: 104px;
-        margin: 0 auto 18px;
-        place-items: center;
-        overflow: hidden;
-        border: 3px solid rgba(255, 255, 255, 0.76);
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.18);
-        box-shadow: var(--shadow);
-        font-size: 31px;
-        font-weight: 800;
-        letter-spacing: 0.04em;
-        backdrop-filter: blur(12px);
+      .logo-frame {
+        position: relative;
+        width: 142px;
+        height: 142px;
+        margin: 0 auto 24px;
+        padding: 8px;
+        border: 2px solid var(--ink);
+        border-radius: 28px;
+        background: #ffffff;
+        box-shadow: 10px 10px 0 var(--accent);
+        transform: rotate(-1.5deg);
       }
 
-      .logo img {
+      .logo-frame::after {
+        position: absolute;
+        right: -15px;
+        bottom: 17px;
+        width: 30px;
+        height: 5px;
+        background: #ffffff;
+        content: "";
+      }
+
+      .logo-frame img {
+        display: block;
         width: 100%;
         height: 100%;
+        border-radius: 20px;
         object-fit: cover;
       }
 
+      .logo-fallback {
+        display: none;
+        width: 100%;
+        height: 100%;
+        place-items: center;
+        border-radius: 20px;
+        color: var(--ink);
+        background: #ffffff;
+        font-size: 2.2rem;
+        font-weight: 900;
+      }
+
+      .eyebrow {
+        margin: 0 0 9px;
+        color: var(--accent);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
       h1 {
-        margin: 0;
-        font-size: clamp(1.75rem, 6vw, 2.35rem);
-        line-height: 1.15;
-        letter-spacing: -0.035em;
+        max-width: 490px;
+        margin: 0 auto;
+        font-size: clamp(2rem, 7vw, 3.25rem);
+        line-height: 0.98;
+        letter-spacing: -0.055em;
+      }
+
+      .arabic-name {
+        margin: 13px 0 0;
+        color: rgba(255, 255, 255, 0.86);
+        font-size: clamp(1.1rem, 4vw, 1.38rem);
+        font-weight: 700;
+        line-height: 1.5;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        width: 138px;
+        margin: 23px auto 18px;
+        gap: 8px;
+      }
+
+      .divider::before,
+      .divider::after {
+        height: 2px;
+        flex: 1;
+        background: rgba(255, 255, 255, 0.26);
+        content: "";
+      }
+
+      .divider span {
+        width: 11px;
+        height: 11px;
+        border: 3px solid var(--accent);
+        border-radius: 50%;
       }
 
       .bio {
-        margin: 9px auto 0;
-        color: var(--muted-text);
-        font-size: 1rem;
-        line-height: 1.55;
+        max-width: 440px;
+        margin: 0 auto;
+        color: rgba(255, 255, 255, 0.64);
+        font-size: 0.98rem;
+        line-height: 1.65;
       }
 
       .links {
         display: grid;
-        gap: 14px;
+        margin-top: 32px;
+        gap: 13px;
       }
 
       .link {
         display: grid;
-        grid-template-columns: 42px 1fr 42px;
+        grid-template-columns: 46px minmax(0, 1fr) 44px;
         align-items: center;
-        min-height: 68px;
-        padding: 10px 13px;
-        border: 1px solid var(--button-border);
-        border-radius: 18px;
-        color: var(--text);
-        background: var(--button-bg);
-        box-shadow: 0 9px 25px rgba(0, 0, 0, 0.13);
+        min-height: 78px;
+        padding: 11px 13px;
+        overflow: hidden;
+        border: 2px solid transparent;
+        border-radius: 19px;
+        color: var(--ink);
+        background: var(--paper);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.17);
+        text-align: left;
         text-decoration: none;
-        backdrop-filter: blur(14px);
         transition:
           transform 180ms ease,
+          border-color 180ms ease,
           background-color 180ms ease,
           box-shadow 180ms ease;
       }
 
       .link:hover {
         transform: translateY(-3px);
-        background: var(--button-hover);
-        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.2);
+        border-color: var(--accent);
+        background: #ffffff;
+        box-shadow: 0 15px 34px rgba(0, 0, 0, 0.27);
       }
 
       .link:focus-visible {
-        outline: 3px solid #ffffff;
+        outline: 3px solid var(--accent);
         outline-offset: 4px;
       }
 
-      .link-icon {
+      .link-number {
         display: grid;
         width: 42px;
         height: 42px;
         place-items: center;
-        border-radius: 13px;
-        background: rgba(255, 255, 255, 0.14);
-        font-size: 1.3rem;
+        border-radius: 12px;
+        color: #ffffff;
+        background: var(--ink);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.76rem;
+        font-weight: 800;
+      }
+
+      .link-copy {
+        min-width: 0;
+        padding: 0 13px;
       }
 
       .link-name {
-        padding: 0 12px;
-        font-size: 1.02rem;
-        font-weight: 700;
+        display: block;
+        overflow: hidden;
+        font-size: 1rem;
+        font-weight: 850;
+        line-height: 1.25;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
-      .arrow {
+      .link-description {
+        display: block;
+        margin-top: 3px;
+        overflow: hidden;
+        color: #6a6a66;
+        font-size: 0.78rem;
+        line-height: 1.3;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .link-arrow {
+        display: grid;
+        width: 40px;
+        height: 40px;
+        place-items: center;
+        border-radius: 50%;
+        color: var(--ink);
+        background: var(--accent);
         font-size: 1.35rem;
-        opacity: 0.72;
+        font-weight: 900;
         transition: transform 180ms ease;
       }
 
-      .link:hover .arrow {
-        transform: translateX(3px);
+      .link:hover .link-arrow {
+        transform: rotate(-8deg) translateX(2px);
       }
 
       footer {
-        margin-top: 28px;
-        color: rgba(255, 255, 255, 0.64);
-        font-size: 0.82rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 27px;
+        color: rgba(255, 255, 255, 0.45);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      footer::before {
+        width: 24px;
+        height: 3px;
+        margin-right: 9px;
+        background: var(--accent);
+        content: "";
+      }
+
+      @media (max-width: 480px) {
+        .page {
+          padding: 18px 12px;
+        }
+
+        .panel {
+          padding: 31px 16px 26px;
+          border-radius: 26px;
+        }
+
+        .logo-frame {
+          width: 122px;
+          height: 122px;
+          border-radius: 24px;
+        }
+
+        .link {
+          grid-template-columns: 42px minmax(0, 1fr) 38px;
+          min-height: 72px;
+          padding: 9px 10px;
+        }
+
+        .link-number {
+          width: 38px;
+          height: 38px;
+        }
+
+        .link-arrow {
+          width: 36px;
+          height: 36px;
+        }
       }
 
       @media (prefers-reduced-motion: reduce) {
         .link,
-        .arrow {
+        .link-arrow {
           transition: none;
         }
       }
@@ -164,364 +353,120 @@
 
   <body>
     <main class="page">
-      <section class="profile" aria-labelledby="profile-name">
-        <div class="logo" id="logo" aria-label="Profile logo"></div>
-        <h1 id="profile-name"></h1>
-        <p class="bio" id="bio"></p>
-      </section>
+      <section class="panel" aria-labelledby="club-name">
+        <header class="profile">
+          <div class="logo-frame">
+            <img id="club-logo" alt="Mechanical Engineering Club logo" />
+            <span class="logo-fallback" id="logo-fallback" aria-hidden="true">MEC</span>
+          </div>
 
-      <nav class="links" id="links" aria-label="My links"></nav>
-      <footer id="footer"></footer>
+          <p class="eyebrow" id="eyebrow"></p>
+          <h1 id="club-name"></h1>
+          <p class="arabic-name" id="arabic-name" lang="ar" dir="rtl"></p>
+          <div class="divider" aria-hidden="true"><span></span></div>
+          <p class="bio" id="bio"></p>
+        </header>
+
+        <nav class="links" id="links" aria-label="Club links"></nav>
+        <footer id="footer"></footer>
+      </section>
     </main>
 
     <script>
       /* ================================================================
-         EDIT ONLY THIS SECTION to personalize your page.
-         For a background image, try:
-         background: "url('your-background.jpg') center / cover fixed"
+         EDIT THIS CONFIG SECTION to personalize the page.
+         Change the names, descriptions and URLs for all three links here.
          ================================================================= */
       const CONFIG = {
-        pageTitle: "My Links",
-        profileName: "Your Name",
-        bio: "Welcome! Find me everywhere below.",
+        pageTitle: "Mechanical Engineering Club | Links",
+        eyebrow: "Official Club Links",
+        clubName: "Mechanical Engineering Club",
+        clubNameArabic: "نادي الهندسة الميكانيكية",
+        bio: "Engineering ideas, building connections, and creating the future together.",
 
-        // Add an image URL here. Leave it empty to show logoText instead.
-        logoImage: "",
-        logoText: "YN",
+        // The club logo is embedded so this page works as one portable file.
+        logoImage: "data:image/webp;base64,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",
 
+        // You can replace these with any CSS color, gradient, or image.
+        accentColor: "#ff7626",
         background:
-          "linear-gradient(145deg, #6d28d9, #2563eb 55%, #0891b2)",
+          "radial-gradient(circle at 18% 8%, rgba(255, 118, 38, 0.20), transparent 27rem), radial-gradient(circle at 90% 88%, rgba(255, 118, 38, 0.11), transparent 24rem), #111111",
 
         links: [
           {
-            name: "My Website",
+            name: "Club Website",
+            description: "News, activities, and club information",
             url: "https://example.com",
-            icon: "🌐",
           },
           {
             name: "Instagram",
+            description: "Follow our latest events and updates",
             url: "https://instagram.com",
-            icon: "📸",
           },
           {
-            name: "YouTube",
-            url: "https://youtube.com",
-            icon: "▶️",
+            name: "Contact Us",
+            description: "Questions, partnerships, and membership",
+            url: "mailto:club@example.com",
           },
         ],
 
-        footerText: "Made with care",
+        footerText: "Mechanical Engineering Club • MEC",
       };
 
       /* Page setup — no changes are needed below this line. */
+      const root = document.documentElement;
+      root.style.setProperty("--accent", CONFIG.accentColor);
+      root.style.setProperty("--page-background", CONFIG.background);
+
       document.title = CONFIG.pageTitle;
-      document.body.style.background = CONFIG.background;
-      document.getElementById("profile-name").textContent = CONFIG.profileName;
+      document.getElementById("eyebrow").textContent = CONFIG.eyebrow;
+      document.getElementById("club-name").textContent = CONFIG.clubName;
+      document.getElementById("arabic-name").textContent = CONFIG.clubNameArabic;
       document.getElementById("bio").textContent = CONFIG.bio;
       document.getElementById("footer").textContent = CONFIG.footerText;
 
-      const logo = document.getElementById("logo");
-
-      if (CONFIG.logoImage.trim()) {
-        const image = document.createElement("img");
-        image.src = CONFIG.logoImage;
-        image.alt = `${CONFIG.profileName} logo`;
-        image.addEventListener("error", () => {
-          logo.textContent = CONFIG.logoText;
-        });
-        logo.appendChild(image);
-      } else {
-        logo.textContent = CONFIG.logoText;
-      }
-
-      const linksContainer = document.getElementById("links");
-
-      CONFIG.links.forEach((item) => {
-        const link = document.createElement("a");
-        link.className = "link";
-        link.href = item.url;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-
-        const icon = document.createElement("span");
-        icon.className = "link-icon";
-        icon.setAttribute("aria-hidden", "true");
-        icon.textContent = item.icon;
-
-        const name = document.createElement("span");
-        name.className = "link-name";
-        name.textContent = item.name;
-
-        const arrow = document.createElement("span");
-        arrow.className = "arrow";
-        arrow.setAttribute("aria-hidden", "true");
-        arrow.textContent = "→";
-
-        link.append(icon, name, arrow);
-        linksContainer.appendChild(link);
+      const logo = document.getElementById("club-logo");
+      const logoFallback = document.getElementById("logo-fallback");
+      logo.src = CONFIG.logoImage;
+      logo.alt = `${CONFIG.clubName} logo`;
+      logo.addEventListener("error", () => {
+        logo.style.display = "none";
+        logoFallback.style.display = "grid";
       });
-    </script>
-  </body>
-</html><!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="A simple personal links page" />
-    <title>My Links</title>
-
-    <style>
-      :root {
-        --text: #ffffff;
-        --muted-text: rgba(255, 255, 255, 0.78);
-        --button-bg: rgba(255, 255, 255, 0.14);
-        --button-border: rgba(255, 255, 255, 0.25);
-        --button-hover: rgba(255, 255, 255, 0.24);
-        --shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        min-height: 100%;
-        margin: 0;
-      }
-
-      body {
-        display: grid;
-        place-items: center;
-        padding: 32px 18px;
-        color: var(--text);
-        font-family:
-          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-          "Segoe UI", sans-serif;
-        background: linear-gradient(145deg, #6d28d9, #2563eb 55%, #0891b2);
-        background-attachment: fixed;
-        background-position: center;
-        background-size: cover;
-      }
-
-      .page {
-        width: min(100%, 560px);
-        text-align: center;
-      }
-
-      .profile {
-        margin-bottom: 28px;
-      }
-
-      .logo {
-        display: grid;
-        width: 104px;
-        height: 104px;
-        margin: 0 auto 18px;
-        place-items: center;
-        overflow: hidden;
-        border: 3px solid rgba(255, 255, 255, 0.76);
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.18);
-        box-shadow: var(--shadow);
-        font-size: 31px;
-        font-weight: 800;
-        letter-spacing: 0.04em;
-        backdrop-filter: blur(12px);
-      }
-
-      .logo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      h1 {
-        margin: 0;
-        font-size: clamp(1.75rem, 6vw, 2.35rem);
-        line-height: 1.15;
-        letter-spacing: -0.035em;
-      }
-
-      .bio {
-        margin: 9px auto 0;
-        color: var(--muted-text);
-        font-size: 1rem;
-        line-height: 1.55;
-      }
-
-      .links {
-        display: grid;
-        gap: 14px;
-      }
-
-      .link {
-        display: grid;
-        grid-template-columns: 42px 1fr 42px;
-        align-items: center;
-        min-height: 68px;
-        padding: 10px 13px;
-        border: 1px solid var(--button-border);
-        border-radius: 18px;
-        color: var(--text);
-        background: var(--button-bg);
-        box-shadow: 0 9px 25px rgba(0, 0, 0, 0.13);
-        text-decoration: none;
-        backdrop-filter: blur(14px);
-        transition:
-          transform 180ms ease,
-          background-color 180ms ease,
-          box-shadow 180ms ease;
-      }
-
-      .link:hover {
-        transform: translateY(-3px);
-        background: var(--button-hover);
-        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.2);
-      }
-
-      .link:focus-visible {
-        outline: 3px solid #ffffff;
-        outline-offset: 4px;
-      }
-
-      .link-icon {
-        display: grid;
-        width: 42px;
-        height: 42px;
-        place-items: center;
-        border-radius: 13px;
-        background: rgba(255, 255, 255, 0.14);
-        font-size: 1.3rem;
-      }
-
-      .link-name {
-        padding: 0 12px;
-        font-size: 1.02rem;
-        font-weight: 700;
-      }
-
-      .arrow {
-        font-size: 1.35rem;
-        opacity: 0.72;
-        transition: transform 180ms ease;
-      }
-
-      .link:hover .arrow {
-        transform: translateX(3px);
-      }
-
-      footer {
-        margin-top: 28px;
-        color: rgba(255, 255, 255, 0.64);
-        font-size: 0.82rem;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .link,
-        .arrow {
-          transition: none;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <main class="page">
-      <section class="profile" aria-labelledby="profile-name">
-        <div class="logo" id="logo" aria-label="Profile logo"></div>
-        <h1 id="profile-name"></h1>
-        <p class="bio" id="bio"></p>
-      </section>
-
-      <nav class="links" id="links" aria-label="My links"></nav>
-      <footer id="footer"></footer>
-    </main>
-
-    <script>
-      /* ================================================================
-         EDIT ONLY THIS SECTION to personalize your page.
-         For a background image, try:
-         background: "url('your-background.jpg') center / cover fixed"
-         ================================================================= */
-      const CONFIG = {
-        pageTitle: "My Links",
-        profileName: "Your Name",
-        bio: "Welcome! Find me everywhere below.",
-
-        // Add an image URL here. Leave it empty to show logoText instead.
-        logoImage: "",
-        logoText: "YN",
-
-        background:
-          "linear-gradient(145deg, #6d28d9, #2563eb 55%, #0891b2)",
-
-        links: [
-          {
-            name: "My Website",
-            url: "https://example.com",
-            icon: "🌐",
-          },
-          {
-            name: "Instagram",
-            url: "https://instagram.com",
-            icon: "📸",
-          },
-          {
-            name: "YouTube",
-            url: "https://youtube.com",
-            icon: "▶️",
-          },
-        ],
-
-        footerText: "Made with care",
-      };
-
-      /* Page setup — no changes are needed below this line. */
-      document.title = CONFIG.pageTitle;
-      document.body.style.background = CONFIG.background;
-      document.getElementById("profile-name").textContent = CONFIG.profileName;
-      document.getElementById("bio").textContent = CONFIG.bio;
-      document.getElementById("footer").textContent = CONFIG.footerText;
-
-      const logo = document.getElementById("logo");
-
-      if (CONFIG.logoImage.trim()) {
-        const image = document.createElement("img");
-        image.src = CONFIG.logoImage;
-        image.alt = `${CONFIG.profileName} logo`;
-        image.addEventListener("error", () => {
-          logo.textContent = CONFIG.logoText;
-        });
-        logo.appendChild(image);
-      } else {
-        logo.textContent = CONFIG.logoText;
-      }
 
       const linksContainer = document.getElementById("links");
 
-      CONFIG.links.forEach((item) => {
+      CONFIG.links.forEach((item, index) => {
         const link = document.createElement("a");
         link.className = "link";
         link.href = item.url;
         link.target = "_blank";
         link.rel = "noopener noreferrer";
+        link.setAttribute("aria-label", `${item.name}: ${item.description}`);
 
-        const icon = document.createElement("span");
-        icon.className = "link-icon";
-        icon.setAttribute("aria-hidden", "true");
-        icon.textContent = item.icon;
+        const number = document.createElement("span");
+        number.className = "link-number";
+        number.setAttribute("aria-hidden", "true");
+        number.textContent = String(index + 1).padStart(2, "0");
+
+        const copy = document.createElement("span");
+        copy.className = "link-copy";
 
         const name = document.createElement("span");
         name.className = "link-name";
         name.textContent = item.name;
 
-        const arrow = document.createElement("span");
-        arrow.className = "arrow";
-        arrow.setAttribute("aria-hidden", "true");
-        arrow.textContent = "→";
+        const description = document.createElement("span");
+        description.className = "link-description";
+        description.textContent = item.description;
 
-        link.append(icon, name, arrow);
+        const arrow = document.createElement("span");
+        arrow.className = "link-arrow";
+        arrow.setAttribute("aria-hidden", "true");
+        arrow.textContent = "↗";
+
+        copy.append(name, description);
+        link.append(number, copy, arrow);
         linksContainer.appendChild(link);
       });
     </script>
