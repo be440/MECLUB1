@@ -284,6 +284,17 @@
         transition: transform 180ms ease;
       }
 
+      .link-arrow svg {
+        display: block;
+        width: 20px;
+        height: 20px;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2.6;
+      }
+
       .link:hover .link-arrow {
         transform: rotate(-8deg) translateX(2px);
       }
@@ -394,23 +405,23 @@
 
         links: [
           {
-            name: "Club WA community ",
+            name: "Club Website",
             description: "News, activities, and club information",
             url: "https://example.com",
           },
           {
-            name: "Linkedin",
+            name: "Instagram",
             description: "Follow our latest events and updates",
-            url: "https://www.linkedin.com/company/kfupm-mechanical-engineering-club/",
+            url: "https://instagram.com",
           },
           {
-            name: "X",
+            name: "Contact Us",
             description: "Questions, partnerships, and membership",
-            url: "https://x.com/meckfupm?s=11",
+            url: "mailto:club@example.com",
           },
         ],
 
-        footerText: "Mechanical Engineering Club • KFUPM ",
+        footerText: "Mechanical Engineering Club • MEC",
       };
 
       /* Page setup — no changes are needed below this line. */
@@ -463,7 +474,22 @@
         const arrow = document.createElement("span");
         arrow.className = "link-arrow";
         arrow.setAttribute("aria-hidden", "true");
-        arrow.textContent = "↗";
+
+        // SVG keeps the arrow identical on iPhone, Android, and desktop.
+        const arrowIcon = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg",
+        );
+        arrowIcon.setAttribute("viewBox", "0 0 24 24");
+        arrowIcon.setAttribute("focusable", "false");
+
+        const arrowPath = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path",
+        );
+        arrowPath.setAttribute("d", "M7 17 17 7M8 7h9v9");
+        arrowIcon.appendChild(arrowPath);
+        arrow.appendChild(arrowIcon);
 
         copy.append(name, description);
         link.append(number, copy, arrow);
